@@ -1,0 +1,46 @@
+package dataProvider;
+
+import java.io.FileInputStream;
+
+
+
+import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+public class ExcelDataProvider {
+
+	XSSFWorkbook wb;
+	 DataFormatter formatter;
+	public ExcelDataProvider(){
+		
+		try {
+			 wb= new XSSFWorkbook(new FileInputStream("./TestCases/InputSheet.xlsx"));
+			 formatter = new DataFormatter();
+			 
+		} catch (Exception e){
+			
+			System.out.println("Unable to load excel sheet");
+			System.out.println(e.getMessage());
+			
+			
+		}
+	}
+	
+	public String getData(String sheetname,int row, int column){
+		
+		String data = wb.getSheet(sheetname).getRow(row).getCell(column).getStringCellValue();
+		
+		return data;
+		
+	}
+	
+	public int rowCount(String sheetname){
+		
+		return wb.getSheet(sheetname).getLastRowNum();
+	
+	}
+	
+	
+	
+	
+}
